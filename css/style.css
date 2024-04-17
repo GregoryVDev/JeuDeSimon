@@ -2,8 +2,8 @@ body {
   background-color: rgba(144, 145, 144, 0.144);
 }
 
-.display {
-  border: 10px double rgb(189, 121, 39);
+#display {
+  border: 10px solid rgb(189, 121, 39);
   width: 35%;
   height: 350px;
   text-align: center;
@@ -11,10 +11,38 @@ body {
 }
 
 .colorplayers {
-  border: 5px solid green;
-  width: 35%;
+  border: 10px solid rgb(189, 121, 39);
+  width: 30%;
   height: 200px;
   margin: 60px auto auto;
+  display: flex;
+}
+
+.red {
+  background: red;
+  width: 150px;
+  height: 200px;
+  border-right: 10px solid rgb(189, 121, 39);
+}
+
+.blue {
+  background: blue;
+  width: 150px;
+  height: 200px;
+  border-right: 10px solid rgb(189, 121, 39);
+}
+
+.green {
+  background: green;
+  width: 150px;
+  height: 200px;
+  border-right: 10px solid rgb(189, 121, 39);
+}
+
+.yellow {
+  background: yellow;
+  width: 150px;
+  height: 200px;
 }
 
 #container-button {
@@ -27,4 +55,9 @@ body {
   padding: 20px;
   text-transform: uppercase;
   border-radius: 10px;
+  background-color: rgba(144, 145, 144, 0.144);
+}
+
+#start:hover {
+  opacity: 0.8;
 }

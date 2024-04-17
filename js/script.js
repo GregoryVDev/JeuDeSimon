@@ -12,3 +12,21 @@ function playersColorChoice() {
 }
 
 playersColorChoice();
+
+let x = 0;
+
+function displayColors() {
+  setTimeout(function () {
+    document.getElementById("display").style.background = colorSuits[x];
+    console.log(colorSuits[x]);
+    x++;
+    if (x < colorSuits.length) {
+      displayColors();
+    }
+  }, 2000);
+  setTimeout(function () {
+    document.getElementById("display").style.background = "white";
+  }, 1000);
+}
+
+displayColors();
