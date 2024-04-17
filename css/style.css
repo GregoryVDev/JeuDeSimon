@@ -13,7 +13,7 @@ body {
 .colorplayers {
   border: 10px solid rgb(189, 121, 39);
   width: 30%;
-  height: 200px;
+  height: 150px;
   margin: 60px auto auto;
   display: flex;
 }
@@ -21,28 +21,28 @@ body {
 .red {
   background: red;
   width: 150px;
-  height: 200px;
+  height: 150px;
   border-right: 10px solid rgb(189, 121, 39);
 }
 
 .blue {
   background: blue;
   width: 150px;
-  height: 200px;
+  height: 150px;
   border-right: 10px solid rgb(189, 121, 39);
 }
 
 .green {
   background: green;
   width: 150px;
-  height: 200px;
+  height: 150px;
   border-right: 10px solid rgb(189, 121, 39);
 }
 
 .yellow {
   background: yellow;
   width: 150px;
-  height: 200px;
+  height: 150px;
 }
 
 #container-button {
