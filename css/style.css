@@ -1,0 +1,30 @@
+body {
+  background-color: rgba(144, 145, 144, 0.144);
+}
+
+.display {
+  border: 10px double rgb(189, 121, 39);
+  width: 35%;
+  height: 350px;
+  text-align: center;
+  margin: auto;
+}
+
+.colorplayers {
+  border: 5px solid green;
+  width: 35%;
+  height: 200px;
+  margin: 60px auto auto;
+}
+
+#container-button {
+  text-align: center;
+}
+
+#start {
+  margin-top: 50px;
+  text-align: center;
+  padding: 20px;
+  text-transform: uppercase;
+  border-radius: 10px;
+}
