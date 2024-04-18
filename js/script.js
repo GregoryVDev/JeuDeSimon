@@ -16,6 +16,7 @@ document
     colorChoices.setAttribute("role", "button");
     // Changes the mouse cursor as it hovers over each element to indicate that they are clickable
     colorChoices.style.cursor = "pointer";
+    // Adds a "click" event listener to each element which executes the "color" function when they are clicked
     colorChoices.addEventListener("click", color);
   });
 
