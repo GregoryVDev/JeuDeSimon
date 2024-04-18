@@ -1,6 +1,24 @@
 let generateColor = ["red", "blue", "green", "yellow"];
 let colorSuits = Array();
 
+// Function to indicate that you have clicked on a colour
+
+function color() {
+  console.log(`Vous avez cliqué sur ${this.id}`);
+}
+
+// Selects all elements with the IDs "red", "blue", "green" and "yellow".
+document
+  .querySelectorAll("#red, #blue, #green, #yellow")
+  // For each item selected, perform the following function
+  .forEach((colorChoices) => {
+    // Adds a "role" attribute with the value "button" to each element
+    colorChoices.setAttribute("role", "button");
+    // Changes the mouse cursor as it hovers over each element to indicate that they are clickable
+    colorChoices.style.cursor = "pointer";
+    colorChoices.addEventListener("click", color);
+  });
+
 function generateInt() {
   return Math.floor(Math.random() * 4);
 }
