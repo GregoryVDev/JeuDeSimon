@@ -1,6 +1,7 @@
 let generateColor = ["red", "blue", "green", "yellow"];
 let colorSuits = Array();
 let playerChoices = []; // Table for storing player choices
+let gameInProgress = true;
 
 // Function to indicate that you have clicked on a colour
 
@@ -69,20 +70,73 @@ function colorCapture() {
   const colorDivs = document.querySelectorAll("#colorplayers > div");
 
   colorDivs.forEach((div) => {
-    div.addEventListener("click", function () {
+    div.addEventListener("click", function handleClick() {
       const selectedColor = this.id;
       playerChoices.push(selectedColor); // Adds the chosen colour to the player's choice table
       console.log("Couleur choisie par le joueur :", selectedColor);
 
       processColor(selectedColor);
+
+      div.removeEventListener("click", handleClick);
     });
   });
 }
 
-colorCapture();
-
 function processColor(color) {
   console.log("Traitement de la couleur", color);
+}
+
+function processColor(selectedColor) {
+  const nextColorInSequence = colorSuits[playerChoices.length - 1];
+  const correctColor = generateColor[playerChoices.length - 1];
+
+  if (selectedColor === nextColorInSequence) {
+    console.log("Correct !");
+
+    if (playerChoices.length === colorSuits.length) {
+      console.log(
+        "Félécitation, vous avez reproduit la séquence avec succès !"
+      );
+    } else {
+      displayNextColor();
+    }
+  } else {
+    console.log("Faux ! Vous avez perdu !");
+    endOfGame();
+  }
+}
+
+function displayNextColor() {
+  const nextColorIndex = playerChoices.length;
+  const nextColor = colorSuits[nextColorIndex];
+
+  const displayElement = document.getElementById("display");
+
+  displayElement.style.background = nextColor;
+
+  setTimeout(function () {
+    displayElement.style.background = "white";
+  }, 1000);
+}
+
+function displayNextColor() {
+  if (!gameInProgress) {
+    return;
+  }
+
+  const nextColorIndex = playerChoices.length;
+  const nextColor = colorSuits[nextColorIndex];
+
+  const displayElement = document.getElementById("display");
+
+  displayElement.style.background = nextColor;
+
+  setTimeout(function () {
+    displayElement.style.background = "white";
+    if (gameInProgress && nextColorIndex < colorSuits.length) {
+      displayNextColor();
+    }
+  }, 1000);
 }
 
 function verifyPlayerChoices() {
@@ -107,4 +161,8 @@ function arraysAreEqual(arr1, arr2) {
     }
   }
   return true;
+}
+
+function endOfGame() {
+  console.log("Fin du jeu !");
 }
