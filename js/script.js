@@ -1,7 +1,24 @@
 let generateColor = ["red", "blue", "green", "yellow"];
 let colorSuits = Array();
+let playerChoices = []; // Table for storing player choices
 
 // Function to indicate that you have clicked on a colour
+
+function game() {
+  const start = document.getElementById("start");
+
+  start.addEventListener("click", function () {
+    playersColorChoice();
+    displayColors();
+    colorCapture();
+
+    start.style.visibility = "hidden";
+
+    console.log("Le jeu a démarré !");
+  });
+}
+
+game();
 
 function color() {
   console.log(`Vous avez cliqué sur ${this.id}`);
@@ -48,15 +65,13 @@ function displayColors() {
   }, 1000);
 }
 
-displayColors();
-
 function colorCapture() {
   const colorDivs = document.querySelectorAll("#colorplayers > div");
 
   colorDivs.forEach((div) => {
     div.addEventListener("click", function () {
       const selectedColor = this.id;
-
+      playerChoices.push(selectedColor); // Adds the chosen colour to the player's choice table
       console.log("Couleur choisie par le joueur :", selectedColor);
 
       processColor(selectedColor);
@@ -68,4 +83,28 @@ colorCapture();
 
 function processColor(color) {
   console.log("Traitement de la couleur", color);
+}
+
+function verifyPlayerChoices() {
+  console.log("choix du joueur:", playerChoices);
+
+  const correctSequence = ["red", "blue", "green", "yellow"];
+
+  if (arraysAreEqual(playerChoices, correctSequence)) {
+    console.log("Bravo ! Vous avez reproduit la séquence correcte.");
+  } else {
+    console.log("Dommage, votre séquence est inccorecte.");
+  }
+}
+
+function arraysAreEqual(arr1, arr2) {
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+  for (let i = 0; i < arr1.length; i++) {
+    if (arr1[i] !== arr2[i]) {
+      return false;
+    }
+  }
+  return true;
 }
