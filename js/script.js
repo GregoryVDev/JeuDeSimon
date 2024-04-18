@@ -49,3 +49,23 @@ function displayColors() {
 }
 
 displayColors();
+
+function colorCapture() {
+  const colorDivs = document.querySelectorAll("#colorplayers > div");
+
+  colorDivs.forEach((div) => {
+    div.addEventListener("click", function () {
+      const selectedColor = this.id;
+
+      console.log("Couleur choisie par le joueur :", selectedColor);
+
+      processColor(selectedColor);
+    });
+  });
+}
+
+colorCapture();
+
+function processColor(color) {
+  console.log("Traitement de la couleur", color);
+}
