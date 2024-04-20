@@ -172,7 +172,7 @@
 // }
 
 let generateColor = ["red", "blue", "green", "yellow"];
-let colorSuits = [];
+let colorSuits = new Array();
 let playerChoices = [];
 let i = 0;
 let x = 0;
@@ -183,8 +183,8 @@ function game() {
 
   start.addEventListener("click", function () {
     start.style.visibility = "hidden";
-
     console.log("Le jeu a démarré !");
+    generatorColor();
   });
 }
 
@@ -196,29 +196,33 @@ function generateInt() {
 
 function generatorColor() {
   colorSuits[i] = generateColor[generateInt()];
+  console.log("generateColor :", colorSuits, colorSuits.length, x);
   i++;
-
+  x = 0;
   displayColors();
-  console.log(colorSuits);
 }
 
 // function turnPlayer() {
 //   // function qui correspond au bouton et qui mettra dans le tableau du joueur la couleur choisit par le joueur
 // }
 
-generatorColor();
+//generatorColor();
 
 function displayColors() {
   setTimeout(function () {
-    document.getElementById("display").style.background = "white";
+    document.getElementById("display").style.background = "white"; // bg white entre les couleurs
     x++;
-    if (x < colorSuits.length) {
-      displayColors();
+    if (x == colorSuits.length) {
+      // une fois qu'on a affiché la liste entière
     }
-  }, 2000);
+    if (x < colorSuits.length) {
+      // tant qu'on a pas affiché la liste entiere
+      displayColors(); //on répète la boucle
+    }
+  }, 2000); //
   setTimeout(function () {
-    document.getElementById("display").style.background = colorSuits[x];
-  }, 1000);
+    document.getElementById("display").style.background = colorSuits[x]; // on applique le background correspondant à la couleur [y] dans la liste
+  }, 1000); //
 }
 
 document
