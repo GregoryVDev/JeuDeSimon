@@ -1,182 +1,11 @@
-// let generateColor = ["red", "blue", "green", "yellow"];
-// let colorSuits = Array();
-// let playerChoices = []; // Table for storing player choices
-// let gameInProgress = false;
-
-// // Function to indicate that you have clicked on a colour
-
-// function game() {
-//   const start = document.getElementById("start");
-//   const display = document.getElementById("display");
-
-//   start.addEventListener("click", function () {
-//     // playersColorChoice();
-//     // displayColors();
-//     // colorCapture();
-//     resetGame();
-
-//     gameInProgress = true;
-
-//     generateNextColor();
-//     display.style.background = colorSequence[0];
-//     console.log("Le jeu a démarré !");
-
-//     setTimeout(function () {
-//       display.style.background = "white";
-//     }, 1000);
-//   });
-// }
-
-// game();
-
-// function generateInt() {
-//   return Math.floor(Math.random() * 4);
-// }
-
-// function generateNextColor() {
-//   colorSequence.push(generateColor[generateInt()]);
-// }
-
-// function resetGame() {
-//   colorSequence = [];
-//   playerChoices = [];
-//   gameInProgress = false;
-// }
-
-// function processColor(selectedColor) {
-//   const correctColor = colorSequence[playerChoices.length];
-
-//   if (selectedColor === correctColor) {
-//     console.log("Correct !");
-//     playerChoices.push(selectedColor);
-
-//     if (playerChoices.length === colorSequence.length) {
-//       generateNextColor();
-//       setTimeout(function () {
-//         display.style.background = colorSequence[playerChoices.length];
-//       }, 1000);
-//       playerChoices = [];
-//     } else {
-//       displayNextColor();
-//     }
-//   } else {
-//     console.log("Faux ! Vous avez perdu !");
-//     endOfGame();
-//   }
-// }
-
-// function color() {
-//   console.log(`Vous avez cliqué sur ${this.id}`);
-// }
-
-// Selects all elements with the IDs "red", "blue", "green" and "yellow".
-// document
-//   .querySelectorAll("#red, #blue, #green, #yellow")
-//   // For each item selected, perform the following function
-//   .forEach((colorChoices) => {
-//     // Adds a "role" attribute with the value "button" to each element
-//     colorChoices.setAttribute("role", "button");
-//     // Changes the mouse cursor as it hovers over each element to indicate that they are clickable
-//     colorChoices.style.cursor = "pointer";
-//     // Adds a "click" event listener to each element which executes the "color" function when they are clicked
-//     colorChoices.addEventListener("click", color);
-//   });
-
-// function playersColorChoice() {
-//   for (let i = 0; i < 15; i++) {
-//     colorSuits[i] = generateColor[generateInt()];
-//   }
-// }
-
-// playersColorChoice();
-
-// let x = 0;
-
-// function displayColors() {
-//   setTimeout(function () {
-//     document.getElementById("display").style.background = "white";
-//     x++;
-//     if (x < colorSuits.length) {
-//       displayColors();
-//     }
-//   }, 2000);
-//   setTimeout(function () {
-//     document.getElementById("display").style.background = colorSuits[x];
-//     console.log(colorSuits[x]);
-//   }, 1000);
-// }
-
-// function colorCapture() {
-//   const colorDivs = document.querySelectorAll("#colorplayers > div");
-
-//   colorDivs.forEach((div) => {
-//     div.addEventListener("click", function handleClick() {
-//       const selectedColor = this.id;
-//       playerChoices.push(selectedColor); // Adds the chosen colour to the player's choice table
-//       console.log("Couleur choisie par le joueur :", selectedColor);
-
-//       processColor(selectedColor);
-
-//       div.removeEventListener("click", handleClick);
-//     });
-//   });
-// }
-
-// function processColor(color) {
-//   console.log("Traitement de la couleur", color);
-// }
-
-// function displayNextColor() {
-//   if (!gameInProgress) {
-//     return;
-//   }
-
-//   const nextColorIndex = playerChoices.length;
-//   const nextColor = colorSuits[nextColorIndex];
-
-//   const displayElement = document.getElementById("display");
-
-//   displayElement.style.background = nextColor;
-
-//   setTimeout(function () {
-//     displayElement.style.background = "white";
-//   }, 1000);
-// }
-
-// function verifyPlayerChoices() {
-//   console.log("choix du joueur:", playerChoices);
-
-//   const correctSequence = ["red", "blue", "green", "yellow"];
-
-//   if (arraysAreEqual(playerChoices, correctSequence)) {
-//     console.log("Bravo ! Vous avez reproduit la séquence correcte.");
-//   } else {
-//     console.log("Dommage, votre séquence est inccorecte.");
-//   }
-// }
-
-// function arraysAreEqual(arr1, arr2) {
-//   if (arr1.length !== arr2.length) {
-//     return false;
-//   }
-//   for (let i = 0; i < arr1.length; i++) {
-//     if (arr1[i] !== arr2[i]) {
-//       return false;
-//     }
-//   }
-//   return true;
-// }
-
-// function endOfGame() {
-//   console.log("Fin du jeu !");
-// }
-
 let generateColor = ["red", "blue", "green", "yellow"];
 let colorSuits = new Array();
 let playerChoices = [];
 let i = 0;
 let x = 0;
 let z = 0;
+let currentIndex = 0;
+let cardsLocked = true;
 
 function game() {
   const start = document.getElementById("start");
@@ -196,17 +25,11 @@ function generateInt() {
 
 function generatorColor() {
   colorSuits[i] = generateColor[generateInt()];
-  console.log("generateColor :", colorSuits, colorSuits.length, x);
+  // console.log("generateColor :", colorSuits, colorSuits.length, x);
   i++;
   x = 0;
   displayColors();
 }
-
-// function turnPlayer() {
-//   // function qui correspond au bouton et qui mettra dans le tableau du joueur la couleur choisit par le joueur
-// }
-
-//generatorColor();
 
 function displayColors() {
   setTimeout(function () {
@@ -219,10 +42,12 @@ function displayColors() {
       // tant qu'on a pas affiché la liste entiere
       displayColors(); //on répète la boucle
     }
-  }, 2000); //
+  }, 1050);
   setTimeout(function () {
     document.getElementById("display").style.background = colorSuits[x]; // on applique le background correspondant à la couleur [y] dans la liste
-  }, 1000); //
+  }, 350);
+  playerChoices = Array();
+  z = 0;
 }
 
 document
@@ -233,10 +58,52 @@ document
     colorChoices.addEventListener("click", color);
   });
 
+function arraysEqual(arr1, arr2) {
+  // On vérifie que les tableaux sont identiques
+  if (arr1.length !== arr2.length) {
+    // Si ils font pas la même longueur, on va pas plus loin
+    return false;
+  }
+  for (let i = 0; i < arr1.length; i++) {
+    // Si ils ont la même longueur, alors
+    if (arr1[i] !== arr2[i]) {
+      // on vérifie chaque ligne et si une est différente
+      return false; // on return false
+    }
+  }
+  return true; // dans les autres cas, les deux listes sont identiques
+}
+
 function color() {
-  console.log(`Vous avez cliqué sur ${this.id}`);
+  const chosenColor = this.id;
+
+  playerChoices.push(chosenColor);
+
+  // Vérifiez d'abord si currentIndex est inférieur à la longueur des deux tableaux
+  if (currentIndex < colorSuits.length && currentIndex < playerChoices.length) {
+    // Ensuite, vérifiez si la couleur choisie par le joueur correspond à la couleur attendue
+    if (playerChoices[currentIndex] === colorSuits[currentIndex]) {
+      // Si c'est le cas, incrémente currentIndex uniquement si la séquence n'est pas terminée
+      if (currentIndex === colorSuits.length - 1) {
+        console.log("Bravo ! Vous avez reproduit la séquence correctement.");
+        generatorColor();
+        playerChoices = [];
+        // Ajoutez ici le code pour afficher la prochaine couleur ou augmenter la difficulté
+      } else {
+        currentIndex++;
+      }
+    } else {
+      console.log("Vous avez fait une erreur. Fin du jeu !");
+      endOfGame();
+    }
+  }
 }
 
 function endOfGame() {
-  console.log("Fin du jeu !");
+  document.getElementById("start").style.visibility = "visible";
+  playerChoices = new Array();
+  colorSuits = new Array();
+  i = 0;
+  z = 0;
+  x = 0;
 }
