@@ -27,6 +27,7 @@ function generatorColor() {
   colorSuits[i] = generateColor[generateInt()];
   // console.log("generateColor :", colorSuits, colorSuits.length, x);
   i++;
+  currentIndex = 0;
   x = 0;
   displayColors();
 }
@@ -78,24 +79,22 @@ function color() {
   const chosenColor = this.id;
 
   playerChoices.push(chosenColor);
+  console.log("playerChoices", playerChoices);
+  console.log("colorSuitss", colorSuits);
 
-  // Vérifiez d'abord si currentIndex est inférieur à la longueur des deux tableaux
-  if (currentIndex < colorSuits.length && currentIndex < playerChoices.length) {
-    // Ensuite, vérifiez si la couleur choisie par le joueur correspond à la couleur attendue
-    if (playerChoices[currentIndex] === colorSuits[currentIndex]) {
-      // Si c'est le cas, incrémente currentIndex uniquement si la séquence n'est pas terminée
-      if (currentIndex === colorSuits.length - 1) {
-        console.log("Bravo ! Vous avez reproduit la séquence correctement.");
-        generatorColor();
-        playerChoices = [];
-        // Ajoutez ici le code pour afficher la prochaine couleur ou augmenter la difficulté
-      } else {
-        currentIndex++;
-      }
+  // Vérifiez si la couleur choisie par le joueur correspond à la couleur attendue
+  if (playerChoices[currentIndex] === colorSuits[currentIndex]) {
+    // Si c'est le cas, incrémente currentIndex uniquement si la séquence n'est pas terminée
+    if (currentIndex === colorSuits.length - 1) {
+      console.log("Bravo ! Vous avez reproduit la séquence correctement.");
+      generatorColor();
+      playerChoices = [];
     } else {
-      console.log("Vous avez fait une erreur. Fin du jeu !");
-      endOfGame();
+      currentIndex++;
     }
+  } else {
+    console.log("Vous avez fait une erreur. Fin du jeu !");
+    endOfGame();
   }
 }
 
