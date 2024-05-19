@@ -1,18 +1,19 @@
 let generateColor = ["red", "blue", "green", "yellow"];
-let colorSuits = new Array();
+let colorSuits = [];
 let playerChoices = [];
 let i = 0;
 let x = 0;
-let z = 0;
 let currentIndex = 0;
 let cardsLocked = true;
+let points = 0;
 
 function game() {
   const start = document.getElementById("start");
 
   start.addEventListener("click", function () {
     start.style.visibility = "hidden";
-    console.log("Le jeu a démarré !");
+    points = 0; // Reset points at the start of a new game
+    updatePointsDisplay(); // Update points display
     generatorColor();
   });
 }
@@ -25,10 +26,12 @@ function generateInt() {
 
 function generatorColor() {
   colorSuits[i] = generateColor[generateInt()];
-  // console.log("generateColor :", colorSuits, colorSuits.length, x);
   i++;
+
   currentIndex = 0;
   x = 0;
+  cardsLocked = true;
+  document.getElementById("displayMessage").innerHTML = ""; // Clear message before starting
   displayColors();
 }
 
@@ -38,25 +41,26 @@ function displayColors() {
     x++;
     if (x == colorSuits.length) {
       // une fois qu'on a affiché la liste entière
+      document.getElementById("displayMessage").innerHTML = "À vous de jouer !"; // Laisse un message pour prévenir que c'est au joueur de jouer
+      cardsLocked = false; // Débloquer les cartes
     }
     if (x < colorSuits.length) {
-      // tant qu'on a pas affiché la liste entiere
-      displayColors(); //on répète la boucle
+      // tant qu'on a pas affiché la liste entière
+      displayColors(); // on répète la boucle
     }
   }, 1050);
   setTimeout(function () {
     document.getElementById("display").style.background = colorSuits[x]; // on applique le background correspondant à la couleur [y] dans la liste
   }, 350);
-  playerChoices = Array();
-  z = 0;
+  playerChoices = [];
 }
 
 document
   .querySelectorAll("#red, #blue, #green, #yellow")
-  .forEach((colorChoices) => {
-    colorChoices.setAttribute("role", "button");
-    colorChoices.style.cursor = "pointer";
-    colorChoices.addEventListener("click", color);
+  .forEach((colorChoice) => {
+    colorChoice.setAttribute("role", "button");
+    colorChoice.style.cursor = "pointer";
+    colorChoice.addEventListener("click", color);
   });
 
 function arraysEqual(arr1, arr2) {
@@ -68,7 +72,8 @@ function arraysEqual(arr1, arr2) {
   for (let i = 0; i < arr1.length; i++) {
     // Si ils ont la même longueur, alors
     if (arr1[i] !== arr2[i]) {
-      // on vérifie chaque ligne et si une est différente
+      document.getElementById("displayMessage").innerHTML =
+        "Perdu ! Vous avez marqué " + points + " points"; // on affiche le message de fin
       return false; // on return false
     }
   }
@@ -76,33 +81,43 @@ function arraysEqual(arr1, arr2) {
 }
 
 function color() {
+  if (cardsLocked) return; // Ignorer les clics si les cartes sont bloquées
+
   const chosenColor = this.id;
 
   playerChoices.push(chosenColor);
-  console.log("playerChoices", playerChoices);
-  console.log("colorSuitss", colorSuits);
 
   // Vérifiez si la couleur choisie par le joueur correspond à la couleur attendue
   if (playerChoices[currentIndex] === colorSuits[currentIndex]) {
     // Si c'est le cas, incrémente currentIndex uniquement si la séquence n'est pas terminée
     if (currentIndex === colorSuits.length - 1) {
-      console.log("Bravo ! Vous avez reproduit la séquence correctement.");
-      generatorColor();
+      points++; // Incrémente les points
+      updatePointsDisplay(); // Mettre à jour l'affichage des points
       playerChoices = [];
+      setTimeout(() => {
+        document.getElementById("displayMessage").innerHTML = ""; // Clear the message immediately when the sequence is correct
+        setTimeout(generatorColor, 500); // Attendre 0.5 seconde avant de générer une nouvelle couleur
+      }, 200); // Give some time to the player to see the successful sequence
     } else {
       currentIndex++;
     }
   } else {
-    console.log("Vous avez fait une erreur. Fin du jeu !");
     endOfGame();
   }
 }
 
+function updatePointsDisplay() {
+  document.getElementById("points").innerHTML = "Points : " + points;
+}
+
 function endOfGame() {
   document.getElementById("start").style.visibility = "visible";
-  playerChoices = new Array();
-  colorSuits = new Array();
+  document.getElementById("displayMessage").innerHTML =
+    "Fin du jeu. Vous avez marqué " +
+    points +
+    " points. Cliquez sur 'Jouer' pour recommencer.";
+  playerChoices = [];
+  colorSuits = [];
   i = 0;
-  z = 0;
-  x = 0;
+  points = 0; // Réinitialiser les points à la fin du jeu
 }
